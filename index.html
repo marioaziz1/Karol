@@ -70,14 +70,15 @@ service cloud.firestore {
    *    Each client gets their own Firebase project.
    *    Swap firebaseConfig → different client, zero data collision.
    * ════════════════════════════════════════════════════════════════ */
-  const firebaseConfig = Object.freeze({
+  const firebaseConfig = {
     apiKey: "AIzaSyApJq9PviCeA8EhpZyevAQI4c8RRF2HO9Y",
     authDomain: "karol-fd3e1.firebaseapp.com",
     projectId: "karol-fd3e1",
     storageBucket: "karol-fd3e1.firebasestorage.app",
     messagingSenderId: "531209477587",
     appId: "1:531209477587:web:062502ecfe8a671214e326"
-  });
+  };
+  console.log("Connected to project:", firebaseConfig.projectId);
   /* ════════════════════════════════════════════════════════════════ */
 
   // ── ADDED: config validation guard ──
@@ -95,7 +96,7 @@ service cloud.firestore {
   if (isFirebaseConfigured(firebaseConfig)) {
     const _app = initializeApp(firebaseConfig);
     db = getFirestore(_app);
-    console.log("Connected to project:", firebaseConfig.projectId);
+    console.log("✅ Firebase initialized — project:", firebaseConfig.projectId);
   } else {
     console.warn("⚠️ Firebase not configured. Running in template mode.");
   }
